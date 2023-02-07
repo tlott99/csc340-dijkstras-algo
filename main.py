@@ -1,36 +1,39 @@
 from dijsktra import Graph
     
-def run_sample():
+def ticket_cost(x,y):
   edges = [
-    ('X', 'A', 7),
-    ('X', 'B', 2),
-    ('X', 'C', 3),
-    ('X', 'E', 4),
-    ('A', 'B', 3),
-    ('A', 'D', 4),
-    ('B', 'D', 4),
-    ('B', 'H', 5),
-    ('C', 'L', 2),
-    ('D', 'F', 1),
-    ('F', 'H', 3),
-    ('G', 'H', 2),
-    ('G', 'Y', 2),
-    ('I', 'J', 6),
-    ('I', 'K', 4),
-    ('I', 'L', 4),
-    ('J', 'L', 1),
-    ('K', 'Y', 5),
+    ('Vanc', 'Bost', 561),
+    ('Vanc', 'New', 603),
+    ('Vanc', 'LasV', 327),
+    ('LosA', 'LasV', 169),
+    ('LosA', 'SLC', 222),
+    ('LosA', 'FtLa', 676),
+    ('LasV', 'SLC', 69),
+    ('LasV', 'FtLa', 99),
+    ('LasV', 'New', 617),
+    ('LasV', 'Chic', 254),
+    ('Minn', 'New', 237),
+    ('Chic', 'New', 226),
+    ('FtLa', 'New', 299),
+    ('FtLa', 'Bost', 465),
+    ('New', 'Bost', 133),
   ]
   
   graph = Graph(edges)
-  start = 'Y'
-  stop = 'X'
+  start = x
+  stop = y
   path = graph.dijsktra_shortest_path(start, stop)
   print (path)
-  
+  print ("You will have", len(path) - 2, "layovers on your flight." )
+  count = 0
+  distance = 0
+  while count < len(path)-1:
+    distance = distance + graph.weights[path[count],path[count+1]]
+    count +=1
+  print("You will fly", distance, "units")
 
 def main():
-  run_sample()
+  ticket_cost('LosA','Chic')
 
 if __name__ == "__main__":
   main()
